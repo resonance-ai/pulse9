@@ -194,7 +194,7 @@ export default function InteractiveAvatar() {
               >
                 <track kind="captions" />
               </video>
-              <div className="flex flex-col gap-2 absolute bottom-3 right-3">
+              {/* <div className="flex flex-col gap-2 absolute bottom-3 right-3">
                 <Button
                   className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white rounded-lg"
                   size="md"
@@ -211,7 +211,7 @@ export default function InteractiveAvatar() {
                 >
                   End session
                 </Button>
-              </div>
+              </div> */}
             </div>
           ) : !isLoadingSession ? (
             <div className="h-full justify-center items-center flex flex-col gap-8 w-[500px] self-center">
@@ -318,11 +318,11 @@ export default function InteractiveAvatar() {
           )}
         </CardFooter>
       </Card>
-      <p className="font-mono text-right">
+      {/* <p className="font-mono text-right">
         <span className="font-bold">Console:</span>
         <br />
         {debug}
-      </p>
+      </p> */}
     </div>
   );
 }
