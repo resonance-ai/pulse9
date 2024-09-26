@@ -96,7 +96,7 @@ export default function InteractiveAvatar() {
           rate: 1.5, // 0.5 ~ 1.5
           emotion: VoiceEmotion.EXCITED,
         },
-        language: language,
+        language: "English",
       });
 
       setData(res);
@@ -216,7 +216,7 @@ export default function InteractiveAvatar() {
           ) : !isLoadingSession ? (
             <div className="h-full justify-center items-center flex flex-col gap-8 w-[500px] self-center">
               <div className="flex flex-col gap-2 w-full">
-                <p className="text-sm font-medium leading-none">
+                {/* <p className="text-sm font-medium leading-none">
                   Custom Knowledge ID (optional)
                 </p>
                 <Input
@@ -231,9 +231,9 @@ export default function InteractiveAvatar() {
                   placeholder="Enter a custom avatar ID"
                   value={avatarId}
                   onChange={(e) => setAvatarId(e.target.value)}
-                />
+                /> */}
                 <Select
-                  placeholder="Or select one from these example avatars"
+                  placeholder="Select one from these avatars"
                   size="md"
                   onChange={(e) => {
                     setAvatarId(e.target.value);
@@ -248,7 +248,7 @@ export default function InteractiveAvatar() {
                     </SelectItem>
                   ))}
                 </Select>
-                <Select
+                {/* <Select
                   label="Select language"
                   placeholder="Select language"
                   className="max-w-xs"
@@ -262,7 +262,7 @@ export default function InteractiveAvatar() {
                       {lang.label}
                     </SelectItem>
                   ))}
-                </Select>
+                </Select> */}
               </div>
               <Button
                 className="bg-gradient-to-tr from-indigo-500 to-indigo-300 w-full text-white"
@@ -270,7 +270,7 @@ export default function InteractiveAvatar() {
                 variant="shadow"
                 onClick={startSession}
               >
-                Start session
+                Start streaming
               </Button>
             </div>
           ) : (
