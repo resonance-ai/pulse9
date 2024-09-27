@@ -180,9 +180,9 @@ export default function InteractiveAvatar() {
   return (
     <div className="w-full flex flex-col gap-4">
       <Card>
-        <CardBody className="h-[900px] flex flex-col justify-center items-center">
+        <CardBody className="h-[948px] flex flex-col justify-center items-center">
           {stream ? (
-            <div className="h-[900px] w-[800px] justify-center items-center flex rounded-lg overflow-hidden">
+            <div className="h-[948px] w-[534px] justify-center items-center flex rounded-lg overflow-hidden">
               <video
                 ref={mediaStream}
                 autoPlay
@@ -339,7 +339,7 @@ export default function InteractiveAvatar() {
                 </Select> */}
               </div>
               <Button
-                className="bg-gradient-to-tr from-indigo-500 to-indigo-300 w-full text-white"
+                className="w-full text-balck"
                 size="md"
                 variant="shadow"
                 onClick={startSession}
