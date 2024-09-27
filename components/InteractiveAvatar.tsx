@@ -277,7 +277,7 @@ export default function InteractiveAvatar() {
             <Spinner color="default" size="lg" />
           )}
         </CardBody>
-        <Divider />
+        {/* <Divider />
         <CardFooter className="flex flex-col gap-3 relative">
           <Tabs
             aria-label="Options"
@@ -316,7 +316,7 @@ export default function InteractiveAvatar() {
               </Button>
             </div>
           )}
-        </CardFooter>
+        </CardFooter> */}
       </Card>
       {/* <p className="font-mono text-right">
         <span className="font-bold">Console:</span>
