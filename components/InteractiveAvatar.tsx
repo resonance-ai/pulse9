@@ -180,9 +180,9 @@ export default function InteractiveAvatar() {
   return (
     <div className="w-full flex flex-col gap-4">
       <Card>
-        <CardBody className="h-[500px] flex flex-col justify-center items-center">
+        <CardBody className="h-[900px] flex flex-col justify-center items-center">
           {stream ? (
-            <div className="h-[800px] w-[700px] justify-center items-center flex rounded-lg overflow-hidden">
+            <div className="h-[900px] w-[800px] justify-center items-center flex rounded-lg overflow-hidden">
               <video
                 ref={mediaStream}
                 autoPlay
