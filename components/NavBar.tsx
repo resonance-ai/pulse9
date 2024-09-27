@@ -14,12 +14,12 @@ export default function NavBar() {
   return (
     <Navbar className="w-full">
       <NavbarBrand>
-        <Link isExternal aria-label="HeyGen" href="https://app.heygen.com/">
+        <Link isExternal aria-label="pulse9" href="https://pulse9.net/">
           <HeyGenLogo />
         </Link>
         <div className="bg-gradient-to-br from-sky-300 to-indigo-500 bg-clip-text ml-4">
-          <p className="text-xl font-semibold text-transparent">
-            HeyGen Interactive Avatar SDK NextJS Demo
+          <p className="text-xl font-semibold">
+            Pulse9
           </p>
         </div>
       </NavbarBrand>
@@ -28,11 +28,11 @@ export default function NavBar() {
           <Link
             isExternal
             color="foreground"
-            href="https://app.heygen.com/interactive-avatar"
+            href="https://www.youtube.com/c/PULSE9_Inc"
           >
-            Avatars
+            Youtube
           </Link>
-          <Link
+          {/* <Link
             isExternal
             color="foreground"
             href="https://docs.heygen.com/reference/list-voices-v2"
@@ -61,8 +61,8 @@ export default function NavBar() {
           >
             <GithubIcon className="text-default-500" />
             SDK
-          </Link>
-          <ThemeSwitch />
+          </Link> */}
+          {/* <ThemeSwitch /> */}
         </NavbarItem>
       </NavbarContent>
     </Navbar>
