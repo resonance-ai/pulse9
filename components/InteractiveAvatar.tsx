@@ -22,6 +22,7 @@ import { useEffect, useRef, useState } from "react";
 import { useMemoizedFn, usePrevious } from "ahooks";
 
 import InteractiveAvatarTextInput from "./InteractiveAvatarTextInput";
+import AvatarButtonTextInput from "./AvatarButtonTextInput";
 
 import {AVATARS, STT_LANGUAGE_LIST} from "@/app/lib/constants";
 
@@ -96,7 +97,7 @@ export default function InteractiveAvatar() {
           rate: 1.5, // 0.5 ~ 1.5
           emotion: VoiceEmotion.EXCITED,
         },
-        language: language,
+        language: "English",
       });
 
       setData(res);
@@ -109,7 +110,7 @@ export default function InteractiveAvatar() {
       setIsLoadingSession(false);
     }
   }
-  async function handleSpeak() {
+  async function handleSpeak(chatMessage: string) {
     setIsLoadingRepeat(true);
     if (!avatar.current) {
       setDebug("Avatar API not initialized");
@@ -117,7 +118,7 @@ export default function InteractiveAvatar() {
       return;
     }
     // speak({ text: text, task_type: TaskType.REPEAT })
-    await avatar.current.speak({ text: text }).catch((e) => {
+    await avatar.current.speak({ text: chatMessage }).catch((e) => {
       setDebug(e.message);
     });
     setIsLoadingRepeat(false);
@@ -179,9 +180,9 @@ export default function InteractiveAvatar() {
   return (
     <div className="w-full flex flex-col gap-4">
       <Card>
-        <CardBody className="h-[500px] flex flex-col justify-center items-center">
+        <CardBody className="h-[900px] flex flex-col justify-center items-center">
           {stream ? (
-            <div className="h-[500px] w-[900px] justify-center items-center flex rounded-lg overflow-hidden">
+            <div className="h-[900px] w-[800px] justify-center items-center flex rounded-lg overflow-hidden">
               <video
                 ref={mediaStream}
                 autoPlay
@@ -194,7 +195,80 @@ export default function InteractiveAvatar() {
               >
                 <track kind="captions" />
               </video>
-              <div className="flex flex-col gap-2 absolute bottom-3 right-3">
+
+              <div className="absolute bottom-40 bg-opacity-0">           
+                <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
+                  <AvatarButtonTextInput
+                    input={"How are you?"} 
+                    onSubmit={() => handleSpeak("How are you?")}
+                    setInput={setText}
+                    disabled={!stream}
+                    loading={isLoadingRepeat}
+                  />
+                  <AvatarButtonTextInput
+                    input={"What your name?"} 
+                    onSubmit={() => handleSpeak("What your name?")}
+                    setInput={setText}
+                    disabled={!stream}
+                    loading={isLoadingRepeat}
+                  />
+                  <AvatarButtonTextInput
+                    input={"What’s your favorite topic?"} 
+                    onSubmit={() => handleSpeak("What’s your favorite topic?")}
+                    setInput={setText}
+                    disabled={!stream}
+                    loading={isLoadingRepeat}
+                  />
+                </CardFooter>
+                <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
+                  <AvatarButtonTextInput
+                    input={"What is your favorite animal?"} 
+                    onSubmit={() => handleSpeak("What is your favorite animal?")}
+                    setInput={setText}
+                    disabled={!stream}
+                    loading={isLoadingRepeat}
+                  />
+                  <AvatarButtonTextInput
+                      input={"What can you help with?"} 
+                      onSubmit={() => handleSpeak("What can you help with?")}
+                      setInput={setText}
+                      disabled={!stream}
+                      loading={isLoadingRepeat}
+                  />
+                  <AvatarButtonTextInput
+                    input={"Can you learn new things?"} 
+                    onSubmit={() => handleSpeak("Can you learn new things?")}
+                    setInput={setText}
+                    disabled={!stream}
+                    loading={isLoadingRepeat}
+                  />
+                </CardFooter>
+                <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
+                  <AvatarButtonTextInput
+                    input={"Can you solve problems?"} 
+                    onSubmit={() => handleSpeak("Can you solve problems?")}
+                    setInput={setText}
+                    disabled={!stream}
+                    loading={isLoadingRepeat}
+                  />
+                  <AvatarButtonTextInput
+                    input={"Do you know fun facts?"} 
+                    onSubmit={() => handleSpeak("Do you know fun facts?")}
+                    setInput={setText}
+                    disabled={!stream}
+                    loading={isLoadingRepeat}
+                  />
+                  <AvatarButtonTextInput
+                    input={"Do you ever sleep?"} 
+                    onSubmit={() => handleSpeak("Do you ever sleep?")}
+                    setInput={setText}
+                    disabled={!stream}
+                    loading={isLoadingRepeat}
+                  />
+                </CardFooter>
+              </div>
+
+              {/* <div className="flex flex-col gap-2 absolute bottom-3 right-3">
                 <Button
                   className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white rounded-lg"
                   size="md"
@@ -211,12 +285,12 @@ export default function InteractiveAvatar() {
                 >
                   End session
                 </Button>
-              </div>
+              </div> */}
             </div>
           ) : !isLoadingSession ? (
             <div className="h-full justify-center items-center flex flex-col gap-8 w-[500px] self-center">
               <div className="flex flex-col gap-2 w-full">
-                <p className="text-sm font-medium leading-none">
+                {/* <p className="text-sm font-medium leading-none">
                   Custom Knowledge ID (optional)
                 </p>
                 <Input
@@ -231,9 +305,9 @@ export default function InteractiveAvatar() {
                   placeholder="Enter a custom avatar ID"
                   value={avatarId}
                   onChange={(e) => setAvatarId(e.target.value)}
-                />
+                /> */}
                 <Select
-                  placeholder="Or select one from these example avatars"
+                  placeholder="Select one from these avatars"
                   size="md"
                   onChange={(e) => {
                     setAvatarId(e.target.value);
@@ -248,7 +322,7 @@ export default function InteractiveAvatar() {
                     </SelectItem>
                   ))}
                 </Select>
-                <Select
+                {/* <Select
                   label="Select language"
                   placeholder="Select language"
                   className="max-w-xs"
@@ -262,7 +336,7 @@ export default function InteractiveAvatar() {
                       {lang.label}
                     </SelectItem>
                   ))}
-                </Select>
+                </Select> */}
               </div>
               <Button
                 className="bg-gradient-to-tr from-indigo-500 to-indigo-300 w-full text-white"
@@ -270,14 +344,14 @@ export default function InteractiveAvatar() {
                 variant="shadow"
                 onClick={startSession}
               >
-                Start session
+                Start streaming
               </Button>
             </div>
           ) : (
             <Spinner color="default" size="lg" />
           )}
         </CardBody>
-        <Divider />
+        {/* <Divider />
         <CardFooter className="flex flex-col gap-3 relative">
           <Tabs
             aria-label="Options"
@@ -316,13 +390,13 @@ export default function InteractiveAvatar() {
               </Button>
             </div>
           )}
-        </CardFooter>
+        </CardFooter> */}
       </Card>
-      <p className="font-mono text-right">
+      {/* <p className="font-mono text-right">
         <span className="font-bold">Console:</span>
         <br />
         {debug}
-      </p>
+      </p> */}
     </div>
   );
 }
