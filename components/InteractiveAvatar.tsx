@@ -102,6 +102,7 @@ export default function InteractiveAvatar() {
         language: "English",
       });
 
+      console.log("======check knowledgeId in startSession:", knowledgeId);
       setData(res);
       // default to voice mode
       await avatar.current?.startVoiceChat();
@@ -188,7 +189,8 @@ async function changeAvatar(selectedAvatarId: string) {
       const res = await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
         avatarName: selectedAvatarId,
-        knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
+        knowledgeId: knowledgeId,
+        knowledgeBase: "Let's play a word chain game",
         voice: {
           rate: 1.5, // 0.5 ~ 1.5
           emotion: VoiceEmotion.EXCITED,
@@ -196,6 +198,7 @@ async function changeAvatar(selectedAvatarId: string) {
         language: "English",
       });
 
+      console.log("======check knowledgeId in changeAvatar:", knowledgeId);
       setData(res);
       // default to voice mode
       await avatar.current?.startVoiceChat();
@@ -260,6 +263,29 @@ async function changeAvatar(selectedAvatarId: string) {
                 <div className="absolute bottom-40 bg-opacity-0">           
                   <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
                     <AvatarButtonTextInput
+                      input={"Apple"} 
+                      onSubmit={() => handleSpeak("Apple")}
+                      setInput={setText}
+                      disabled={!stream}
+                      loading={isLoadingRepeat}
+                    />
+                    <AvatarButtonTextInput
+                      input={"Music"} 
+                      onSubmit={() => handleSpeak("Music")}
+                      setInput={setText}
+                      disabled={!stream}
+                      loading={isLoadingRepeat}
+                    />
+                    <AvatarButtonTextInput
+                      input={"Key"} 
+                      onSubmit={() => handleSpeak("Key")}
+                      setInput={setText}
+                      disabled={!stream}
+                      loading={isLoadingRepeat}
+                    />
+                  </CardFooter>
+                  {/* <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
+                    <AvatarButtonTextInput
                       input={"How are you?"} 
                       onSubmit={() => handleSpeak("How are you?")}
                       setInput={setText}
@@ -280,7 +306,7 @@ async function changeAvatar(selectedAvatarId: string) {
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
-                  </CardFooter>
+                  </CardFooter> */}
                   <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
                     <AvatarButtonTextInput
                       input={"What is your favorite animal?"} 
