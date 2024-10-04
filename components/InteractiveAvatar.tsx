@@ -230,6 +230,7 @@ async function changeAvatar(selectedAvatarId: string) {
       mediaStream.current.srcObject = stream;
       mediaStream.current.onloadedmetadata = () => {
         mediaStream.current!.play();
+        handleSpeak("Hi! Can you tell me who you are?");
         setDebug("Playing");
       };
     }
