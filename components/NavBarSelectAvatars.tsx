@@ -41,16 +41,19 @@ export default function NavBarSelectAvatars({changeAvatar}: AvatarIdByNavProps )
       <NavbarContent justify="center">
         <NavbarItem className="flex flex-row items-center gap-4">
           <Button
+            isDisabled={false}
             onClick={() => changeAvatar("Eric_public_pro2_20230608")}
           >
             Eric
           </Button>
           <Button
+            isDisabled={false}
             onClick={() => changeAvatar("Susan_public_2_20240328")}
           >
             Susan
           </Button>
           <Button
+            isDisabled={false}
             onClick={() => changeAvatar("Tyler-incasualsuit-20220721")}
           >
             Tyler

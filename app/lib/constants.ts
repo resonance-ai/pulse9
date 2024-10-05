@@ -51,3 +51,9 @@ export const STT_LANGUAGE_LIST = [
   { label: 'Ukrainian', value: 'uk', key: 'uk' },
   { label: 'Vietnamese', value: 'vi', key: 'vi' },
 ];
+
+
+export const STT_LANGUAGE_LIST_SHORT = [
+  { label: 'Chinese', value: 'zh', key: 'zh' },
+  { label: 'English', value: 'en', key: 'en' },
+  ];

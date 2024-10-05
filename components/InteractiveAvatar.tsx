@@ -17,6 +17,7 @@ import {
   Chip,
   Tabs,
   Tab,
+  Spacer,
 } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { useMemoizedFn, usePrevious } from "ahooks";
@@ -25,8 +26,9 @@ import InteractiveAvatarTextInput from "./InteractiveAvatarTextInput";
 import AvatarButtonTextInput from "./AvatarButtonTextInput";
 import NavBarSelectAvatars from "./NavBarSelectAvatars";
 import NavBar from "./NavBar";
+import SelectLanguageButton from "./SelectLanguageButton";
 
-import {AVATARS, STT_LANGUAGE_LIST} from "@/app/lib/constants";
+import {AVATARS, STT_LANGUAGE_LIST, STT_LANGUAGE_LIST_SHORT} from "@/app/lib/constants";
 
 export default function InteractiveAvatar() {
   const [isLoadingSession, setIsLoadingSession] = useState(false);
@@ -41,7 +43,7 @@ export default function InteractiveAvatar() {
   const [text, setText] = useState<string>("");
   const mediaStream = useRef<HTMLVideoElement>(null);
   const avatar = useRef<StreamingAvatar | null>(null);
-  const [chatMode, setChatMode] = useState("text_mode");
+  const [chatMode, setChatMode] = useState("voice_mode");
   const [isUserTalking, setIsUserTalking] = useState(false);
 
   async function fetchAccessToken() {
@@ -93,16 +95,15 @@ export default function InteractiveAvatar() {
     try {
       const res = await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
-        avatarName: avatarId,
+        avatarName: "Anna_public_3_20240108",
         knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
         voice: {
           rate: 1.5, // 0.5 ~ 1.5
           emotion: VoiceEmotion.EXCITED,
         },
-        language: "English",
+        language: language,
       });
 
-      console.log("======check knowledgeId in startSession:", knowledgeId);
       setData(res);
       // default to voice mode
       await avatar.current?.startVoiceChat();
@@ -156,6 +157,8 @@ export default function InteractiveAvatar() {
   });
 
 async function changeAvatar(selectedAvatarId: string) {
+    endSession();
+    console.log("======endSession in changeAvatar for new session");
     setIsLoadingSession(true);
     // setAvatarId("selectedAvatarId");
     const newToken = await fetchAccessToken();
@@ -195,10 +198,9 @@ async function changeAvatar(selectedAvatarId: string) {
           rate: 1.5, // 0.5 ~ 1.5
           emotion: VoiceEmotion.EXCITED,
         },
-        language: "English",
+        language: language,
       });
 
-      console.log("======check knowledgeId in changeAvatar:", knowledgeId);
       setData(res);
       // default to voice mode
       await avatar.current?.startVoiceChat();
@@ -237,14 +239,14 @@ async function changeAvatar(selectedAvatarId: string) {
   }, [mediaStream, stream]);
 
   return (
-    <div>
+    <div className="w-full">
       <NavBarSelectAvatars changeAvatar={changeAvatar}/>
       {/* <NavBar 
         onSubmit={changeAvatar}
         setInput={setText}
       /> */}
       <div className="w-full flex flex-col gap-4">
-        <Card>
+        <Card className="shadow-none rounded-0">
           <CardBody className="h-[948px] flex flex-col justify-center items-center">
             {stream ? (
               <div className="h-[948px] w-[534px] justify-center items-center flex rounded-lg overflow-hidden">
@@ -261,8 +263,8 @@ async function changeAvatar(selectedAvatarId: string) {
                   <track kind="captions" />
                 </video>
 
-                <div className="absolute bottom-40 bg-opacity-0">           
-                  <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
+                {/* <div className="absolute bottom-40 bg-opacity-0">           
+                  <div className="flex flex-row justify-center gap-3 bg-opacity-0">
                     <AvatarButtonTextInput
                       input={"Apple"} 
                       onSubmit={() => handleSpeak("Apple")}
@@ -284,31 +286,9 @@ async function changeAvatar(selectedAvatarId: string) {
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
-                  </CardFooter>
-                  {/* <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
-                    <AvatarButtonTextInput
-                      input={"How are you?"} 
-                      onSubmit={() => handleSpeak("How are you?")}
-                      setInput={setText}
-                      disabled={!stream}
-                      loading={isLoadingRepeat}
-                    />
-                    <AvatarButtonTextInput
-                      input={"What your name?"} 
-                      onSubmit={() => handleSpeak("What your name?")}
-                      setInput={setText}
-                      disabled={!stream}
-                      loading={isLoadingRepeat}
-                    />
-                    <AvatarButtonTextInput
-                      input={"What’s your favorite topic?"} 
-                      onSubmit={() => handleSpeak("What’s your favorite topic?")}
-                      setInput={setText}
-                      disabled={!stream}
-                      loading={isLoadingRepeat}
-                    />
-                  </CardFooter> */}
-                  <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
+                  </div>
+                  <Spacer y={4} />
+                  <div className="flex flex-row justify-center gap-3 bg-opacity-0">
                     <AvatarButtonTextInput
                       input={"What is your favorite animal?"} 
                       onSubmit={() => handleSpeak("What is your favorite animal?")}
@@ -330,8 +310,9 @@ async function changeAvatar(selectedAvatarId: string) {
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
-                  </CardFooter>
-                  <CardFooter className="flex flex-row justify-center gap-3 bg-opacity-0">
+                  </div>
+                  <Spacer y={4} />
+                  <div className="flex flex-row justify-center gap-3 bg-opacity-0">
                     <AvatarButtonTextInput
                       input={"Can you solve problems?"} 
                       onSubmit={() => handleSpeak("Can you solve problems?")}
@@ -353,27 +334,27 @@ async function changeAvatar(selectedAvatarId: string) {
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
-                  </CardFooter>
-                </div>
+                  </div>
+                </div> */}
 
-                {/* <div className="flex flex-col gap-2 absolute bottom-3 right-3">
-                  <Button
+                <div className="flex flex-col gap-2 absolute bottom-3 right-3">
+                  {/* <Button
                     className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white rounded-lg"
                     size="md"
                     variant="shadow"
                     onClick={handleInterrupt}
                   >
                     Interrupt task
-                  </Button>
+                  </Button> */}
                   <Button
-                    className="bg-gradient-to-tr from-indigo-500 to-indigo-300  text-white rounded-lg"
+                    className="text-balck rounded-lg"
                     size="md"
                     variant="shadow"
                     onClick={endSession}
                   >
                     End session
                   </Button>
-                </div> */}
+                </div>
               </div>
             ) : !isLoadingSession ? (
               <div className="h-full justify-center items-center flex flex-col gap-8 w-[500px] self-center">
@@ -394,7 +375,7 @@ async function changeAvatar(selectedAvatarId: string) {
                     value={avatarId}
                     onChange={(e) => setAvatarId(e.target.value)}
                   /> */}
-                  <Select
+                  {/* <Select
                     placeholder="Select one from these avatars"
                     size="md"
                     onChange={(e) => {
@@ -409,8 +390,8 @@ async function changeAvatar(selectedAvatarId: string) {
                         {avatar.name}
                       </SelectItem>
                     ))}
-                  </Select>
-                  {/* <Select
+                  </Select> */}
+                  <Select
                     label="Select language"
                     placeholder="Select language"
                     className="max-w-xs"
@@ -419,12 +400,12 @@ async function changeAvatar(selectedAvatarId: string) {
                       setLanguage(e.target.value);
                     }}
                   >
-                    {STT_LANGUAGE_LIST.map((lang) => (
+                    {STT_LANGUAGE_LIST_SHORT.map((lang) => (
                       <SelectItem key={lang.key}>
                         {lang.label}
                       </SelectItem>
                     ))}
-                  </Select> */}
+                  </Select>
                 </div>
                 <Button
                   className="w-full text-balck"
@@ -439,9 +420,9 @@ async function changeAvatar(selectedAvatarId: string) {
               <Spinner color="default" size="lg" />
             )}
           </CardBody>
-          {/* <Divider />
+          {/* <Divider /> */}
           <CardFooter className="flex flex-col gap-3 relative">
-            <Tabs
+            {/* <Tabs
               aria-label="Options"
               selectedKey={chatMode}
               onSelectionChange={(v) => {
@@ -450,10 +431,10 @@ async function changeAvatar(selectedAvatarId: string) {
             >
               <Tab key="text_mode" title="Text mode" />
               <Tab key="voice_mode" title="Voice mode" />
-            </Tabs>
+            </Tabs> */}
             {chatMode === "text_mode" ? (
               <div className="w-full flex relative">
-                <InteractiveAvatarTextInput
+                {/* <InteractiveAvatarTextInput
                   disabled={!stream}
                   input={text}
                   label="Chat"
@@ -464,7 +445,7 @@ async function changeAvatar(selectedAvatarId: string) {
                 />
                 {text && (
                   <Chip className="absolute right-16 top-3">Listening</Chip>
-                )}
+                )} */}
               </div>
             ) : (
               <div className="w-full text-center">
@@ -478,7 +459,7 @@ async function changeAvatar(selectedAvatarId: string) {
                 </Button>
               </div>
             )}
-          </CardFooter> */}
+          </CardFooter>
         </Card>
         {/* <p className="font-mono text-right">
           <span className="font-bold">Console:</span>
