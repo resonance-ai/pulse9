@@ -181,13 +181,13 @@ async function changeAvatar(selectedAvatarId: string) {
       setStream(event.detail);
     });
     avatar.current?.on(StreamingEvents.USER_START, (event) => {
-      console.log(">>>>> User started talking:", event);
+      console.log(">>>>> User started talking in chageAvatar:", event);
       setIsUserTalking(true);
     });
     avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
-      console.log(">>>>> User stopped talking:", event);
+      console.log(">>>>> User stopped talking in chageAvatar:", event);
       setIsUserTalking(false);
-    });
+    });    
     try {
       const res = await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
@@ -338,14 +338,14 @@ async function changeAvatar(selectedAvatarId: string) {
                 </div> */}
 
                 <div className="flex flex-col gap-2 absolute bottom-3 right-3">
-                  {/* <Button
+                  <Button
                     className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white rounded-lg"
                     size="md"
                     variant="shadow"
                     onClick={handleInterrupt}
                   >
                     Interrupt task
-                  </Button> */}
+                  </Button>
                   <Button
                     className="text-balck rounded-lg"
                     size="md"
@@ -355,6 +355,18 @@ async function changeAvatar(selectedAvatarId: string) {
                     End session
                   </Button>
                 </div>
+
+                <div className="absolute text-center bottom-3">
+                  <Button
+                    className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white"
+                    size="md"
+                    variant="shadow"
+                    onClick={() => setIsUserTalking}
+                  >
+                    {isUserTalking ? "Listening" : "Voice chat"}
+                  </Button>
+                </div>
+
               </div>
             ) : !isLoadingSession ? (
               <div className="h-full justify-center items-center flex flex-col gap-8 w-[500px] self-center">
@@ -421,8 +433,8 @@ async function changeAvatar(selectedAvatarId: string) {
             )}
           </CardBody>
           {/* <Divider /> */}
-          <CardFooter className="flex flex-col gap-3 relative">
-            {/* <Tabs
+          {/* <CardFooter className="flex flex-col gap-3 relative">
+            <Tabs
               aria-label="Options"
               selectedKey={chatMode}
               onSelectionChange={(v) => {
@@ -431,10 +443,10 @@ async function changeAvatar(selectedAvatarId: string) {
             >
               <Tab key="text_mode" title="Text mode" />
               <Tab key="voice_mode" title="Voice mode" />
-            </Tabs> */}
+            </Tabs>
             {chatMode === "text_mode" ? (
               <div className="w-full flex relative">
-                {/* <InteractiveAvatarTextInput
+                <InteractiveAvatarTextInput
                   disabled={!stream}
                   input={text}
                   label="Chat"
@@ -445,7 +457,7 @@ async function changeAvatar(selectedAvatarId: string) {
                 />
                 {text && (
                   <Chip className="absolute right-16 top-3">Listening</Chip>
-                )} */}
+                )}
               </div>
             ) : (
               <div className="w-full text-center">
@@ -459,13 +471,13 @@ async function changeAvatar(selectedAvatarId: string) {
                 </Button>
               </div>
             )}
-          </CardFooter>
+          </CardFooter> */}
         </Card>
-        {/* <p className="font-mono text-right">
+        <p className="font-mono text-right">
           <span className="font-bold">Console:</span>
           <br />
           {debug}
-        </p> */}
+        </p>
       </div>
     </div>
   );
