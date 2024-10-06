@@ -180,19 +180,14 @@ async function changeAvatar(selectedAvatarId: string) {
       console.log(">>>>> Stream ready:", event.detail);
       setStream(event.detail);
     });
-
-    if (isUserTalking){
-      avatar.current?.on(StreamingEvents.USER_START, (event) => {
-        console.log(">>>>> User started talking in chageAvatar:", event);
-        setIsUserTalking(true);
-      });
-    } else {
-      avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
-        console.log(">>>>> User stopped talking in chageAvatar:", event);
-        setIsUserTalking(false);
-      });
-    }
-    
+    avatar.current?.on(StreamingEvents.USER_START, (event) => {
+      console.log(">>>>> User started talking in chageAvatar:", event);
+      setIsUserTalking(true);
+    });
+    avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
+      console.log(">>>>> User stopped talking in chageAvatar:", event);
+      setIsUserTalking(false);
+    });    
     try {
       const res = await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
@@ -362,33 +357,14 @@ async function changeAvatar(selectedAvatarId: string) {
                 </div>
 
                 <div className="absolute text-center bottom-3">
-                  {isUserTalking ? (
-                    <Button
-                      className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white"
-                      size="md"
-                      variant="shadow"
-                      onClick={() => setIsUserTalking(false)}
-                    >
-                      Listening
-                    </Button>
-                  ):(
-                    <Button
-                      className="bg-gradient-to-tr text-white"
-                      size="md"
-                      variant="shadow"
-                      onClick={() => setIsUserTalking(true)}
-                    >
-                      Voice chat
-                    </Button>
-                  )}
-                  {/* <Button
+                  <Button
                     className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white"
                     size="md"
                     variant="shadow"
                     onClick={() => setIsUserTalking}
                   >
                     {isUserTalking ? "Listening" : "Voice chat"}
-                  </Button> */}
+                  </Button>
                 </div>
 
               </div>
