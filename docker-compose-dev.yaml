@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  heygen:
+    image: node:local
+    command: sh
+    tty: true
+    stdin_open: true
+    working_dir: /workspace
+    volumes:
+     - ./:/workspace
+
+    ports:
+      - 3000:3000
+
+    build: 
+      dockerfile: ./Dockerfile
+
