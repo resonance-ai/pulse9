@@ -6,6 +6,8 @@ import { Providers } from "./providers";
 
 import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google";
 import NavBar from "@/components/NavBar";
+import NavBarSelectAvatars from "@/components/NavBarSelectAvatars";
+import React, {useState} from "react";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -49,7 +51,8 @@ export default function RootLayout({
       <body className={clsx("min-h-screen bg-background antialiased")}>
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <main className="relative flex flex-col h-screen w-screen">
-            <NavBar />
+            {/* <NavBar /> */}
+            {/* <NavBarSelectAvatars /> */}
             {children}
           </main>
         </Providers>

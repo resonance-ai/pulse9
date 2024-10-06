@@ -10,18 +10,21 @@ import {
 } from "@nextui-org/react";
 import { GithubIcon, HeyGenLogo } from "./Icons";
 import { ThemeSwitch } from "./ThemeSwitch";
-import React from "react";
-import NavBarSelectAvatars from "./NavBarSelectAvatars";
+import React, {useState} from "react";
 
-interface NavBarProps {
-  onSubmit: () => void;
-  setAvatarId: (value: string) => void;
+
+interface AvatarIdByNavProps {
+  changeAvatar: (selectedAvatartId: string) => void;
 }
 
-export default function NavBar({onSubmit, setAvatarId}: NavBarProps) {
-  function handleSubmit() {
-    onSubmit();
-  }
+
+// export default function NavBarSelectAvatars(changeAvatar: AvatarIdByNavProps) {
+export default function NavBarSelectAvatars({changeAvatar}: AvatarIdByNavProps ) {
+// export default function NavBarSelectAvatars() {
+
+  // function handle() {
+  //   changeAvatar();
+  // }
 
   return (
     <Navbar className="w-full">
@@ -37,13 +40,39 @@ export default function NavBar({onSubmit, setAvatarId}: NavBarProps) {
       </NavbarBrand>
       <NavbarContent justify="center">
         <NavbarItem className="flex flex-row items-center gap-4">
-          <Link
+          <Button
+            isDisabled={false}
+            onClick={() => changeAvatar("Eric_public_pro2_20230608")}
+          >
+            Eric
+          </Button>
+          <Button
+            isDisabled={false}
+            onClick={() => changeAvatar("Susan_public_2_20240328")}
+          >
+            Susan
+          </Button>
+          <Button
+            isDisabled={false}
+            onClick={() => changeAvatar("Tyler-incasualsuit-20220721")}
+          >
+            Tyler
+          </Button>
+          {/* <Button
+            onClick={() => setAvatarId("avatar ID2")}
+            // onClick={() => changeAvatar("Data for Button 1")}
+          >
+            Eric
+          </Button> */}
+
+          {/* <Link
             isExternal
             color="foreground"
             href="https://www.youtube.com/c/PULSE9_Inc"
           >
             Youtube
-          </Link>
+          </Link> */}
+
           {/* <Link
             isExternal
             color="foreground"
