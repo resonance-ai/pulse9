@@ -334,7 +334,7 @@ async function changeAvatar(selectedAvatarId: string) {
                   </div>
                 </div> */}
 
-                <div className="flex flex-col gap-2 absolute bottom-3 right-3">
+                <div className="flex flex-col gap-2 absolute bottom-3 left-3">
                   <Button
                     className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white rounded-lg"
                     size="md"
@@ -476,6 +476,7 @@ async function changeAvatar(selectedAvatarId: string) {
           {debug}
         </p>
         <div>
+        {/* <div className="bottom-4 right-10"> */}
           <FloatingNav changeAvatar={changeAvatar}/>
         </div>
       </div>

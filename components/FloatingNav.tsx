@@ -16,13 +16,13 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
     { icon: Trash, color: 'red', label: 'Delete', options: ['Delete 1', 'Delete 2', 'Delete 3'] },
   ];
   const avatartsButtons = [
-    { icon: Share, color: 'blue', label: 'Share', 
+    { icon: Share, label: 'Share', 
       names: ['Eric', 'Susan', 'Tyler'], 
       ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
-    { icon: Edit, color: 'green', label: 'Edit', 
+    { icon: Edit, label: 'Edit', 
       names: ['Eric', 'Susan', 'Tyler'], 
       ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
-    { icon: Trash, color: 'red', label: 'Delete', 
+    { icon: Trash, label: 'Delete', 
       names: ['Eric', 'Susan', 'Tyler'], 
       ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
   ];
@@ -49,7 +49,8 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
   const endAngle = Math.PI / 4;
 
   return (
-    <div className="fixed bottom-8 right-8">
+    <div className="fixed bottom-20 right-20">
+    {/* <div className="fixed bottom-8 right-8"> */}
       <div className="relative w-64 h-64">
         {mainButtons.map((button, index) => {
           const angle = startAngle + (index / (mainButtons.length - 1)) * (endAngle - startAngle);
@@ -60,7 +61,7 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
             <button
               key={button.label}
               onClick={() => handleButtonClick(index)}
-              className={`absolute w-12 h-12 rounded-full bg-${button.color}-500 text-white flex items-center justify-center shadow-lg hover:bg-${button.color}-600 transition-all duration-300`}
+              className={`absolute w-12 h-12 rounded-full bg-white text-black flex items-center justify-center shadow-lg`}
               style={{
                 transform: `translate(${x}px, ${-y}px) scale(${isExpanded && activeSection === null ? 1 : 0})`,
                 opacity: isExpanded && activeSection === null ? 1 : 0,
@@ -80,7 +81,7 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
               <button
                 key={index}
                 onClick={() => changeAvatar(avatartsButtons[activeSection].ids[index])}
-                className={`w-40 h-12 rounded-lg bg-${mainButtons[activeSection].color}-500 text-white flex items-center justify-center shadow-lg hover:bg-${mainButtons[activeSection].color}-600 transition-all duration-300`}
+                className={`w-40 h-12 rounded-lg bg-white text-black flex items-center justify-center shadow-lg`}
                 style={{
                   transform: `translateX(${isExpanded ? 0 : 100}px)`,
                   opacity: isExpanded ? 1 : 0,
@@ -119,7 +120,7 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
 
         <button 
           onClick={toggleExpand} 
-          className="absolute right-0 bottom-0 w-16 h-16 rounded-full bg-purple-500 text-white flex items-center justify-center shadow-lg hover:bg-purple-600 transition-all duration-300 z-10"
+          className="absolute right-2 bottom-5 w-16 h-16 rounded-full bg-purple-500 text-white flex items-center justify-center shadow-lg hover:bg-purple-600 transition-all duration-300 z-10"
         >
           {isExpanded ? <X size={32} /> : <Plus size={32} />}
         </button>
