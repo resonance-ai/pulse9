@@ -1,22 +1,42 @@
 import React, { useState } from 'react';
 import { Plus, X, Share, Edit, Trash, ArrowLeft } from 'lucide-react';
 
-const FloatingNav = () => {
+interface FloatingNavProps {
+  changeAvatar: (selectedAvatartId: string) => void;
+}
+
+
+const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState<null | number>(null);
 
   const mainButtons = [
     { icon: Share, color: 'blue', label: 'Share', options: ['Option 1', 'Option 2', 'Option 3'] },
     { icon: Edit, color: 'green', label: 'Edit', options: ['Edit 1', 'Edit 2', 'Edit 3'] },
     { icon: Trash, color: 'red', label: 'Delete', options: ['Delete 1', 'Delete 2', 'Delete 3'] },
   ];
+  const avatartsButtons = [
+    { icon: Share, color: 'blue', label: 'Share', 
+      names: ['Eric', 'Susan', 'Tyler'], 
+      ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
+    { icon: Edit, color: 'green', label: 'Edit', 
+      names: ['Eric', 'Susan', 'Tyler'], 
+      ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
+    { icon: Trash, color: 'red', label: 'Delete', 
+      names: ['Eric', 'Susan', 'Tyler'], 
+      ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
+  ];
+
+  const handleConsole = (data : any) => {
+    console.log("========== test data : ", data);
+  }
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
     setActiveSection(null);
   };
 
-  const handleButtonClick = (index) => {
+  const handleButtonClick = (index: number) => {
     setActiveSection(index);
   };
 
@@ -56,7 +76,21 @@ const FloatingNav = () => {
 
         {isExpanded && activeSection !== null && (
           <div className="absolute bottom-20 right-0 flex flex-col space-y-2">
-            {mainButtons[activeSection].options.map((option, index) => (
+            {avatartsButtons[activeSection].names.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => changeAvatar(avatartsButtons[activeSection].ids[index])}
+                className={`w-40 h-12 rounded-lg bg-${mainButtons[activeSection].color}-500 text-white flex items-center justify-center shadow-lg hover:bg-${mainButtons[activeSection].color}-600 transition-all duration-300`}
+                style={{
+                  transform: `translateX(${isExpanded ? 0 : 100}px)`,
+                  opacity: isExpanded ? 1 : 0,
+                  transitionDelay: `${index * 50}ms`,
+                }}
+              >
+                {option}
+              </button>
+            ))}
+            {/* {mainButtons[activeSection].options.map((option, index) => (
               <button
                 key={index}
                 className={`w-40 h-12 rounded-lg bg-${mainButtons[activeSection].color}-500 text-white flex items-center justify-center shadow-lg hover:bg-${mainButtons[activeSection].color}-600 transition-all duration-300`}
@@ -68,7 +102,7 @@ const FloatingNav = () => {
               >
                 {option}
               </button>
-            ))}
+            ))} */}
             <button
               onClick={handleBack}
               className="w-40 h-12 rounded-lg bg-gray-500 text-white flex items-center justify-center shadow-lg hover:bg-gray-600 transition-all duration-300"
