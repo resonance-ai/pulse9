@@ -241,7 +241,7 @@ async function changeAvatar(selectedAvatarId: string) {
 
   return (
     <div className="w-full">
-      <NavBarSelectAvatars changeAvatar={changeAvatar}/>
+      {/* <NavBarSelectAvatars changeAvatar={changeAvatar}/> */}
       <div className="w-full flex flex-col gap-4">
         <Card className="shadow-none rounded-0">
           <CardBody className="h-[948px] flex flex-col justify-center items-center">
@@ -476,7 +476,6 @@ async function changeAvatar(selectedAvatarId: string) {
           {debug}
         </p>
         <div>
-        {/* <div className="bottom-4 right-10"> */}
           <FloatingNav changeAvatar={changeAvatar}/>
         </div>
       </div>
