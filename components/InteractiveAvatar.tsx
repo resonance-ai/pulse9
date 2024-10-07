@@ -434,6 +434,21 @@ async function changeAvatar(selectedAvatarId: string) {
             )}
           </CardBody>
           {/* <Divider /> */}
+
+          <CardFooter className="flex flex-col gap-3 relative">
+            <Tabs
+              aria-label="Options"
+              selectedKey={chatMode}
+              onSelectionChange={(v) => {
+                handleChangeChatMode(v);
+              }}
+            >
+               <Tab key="text_mode" title="Voice OFF" />
+               <Tab key="voice_mode" title="Voice ON" />
+            </Tabs>
+          </CardFooter>
+
+
           {/* <CardFooter className="flex flex-col gap-3 relative">
             <Tabs
               aria-label="Options"

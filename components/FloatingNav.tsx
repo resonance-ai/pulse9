@@ -3,7 +3,7 @@ import { Plus, X, Share, Edit, Trash, ArrowLeft } from 'lucide-react';
 
 const FloatingNav = () => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState<null | number>(null);
 
   const mainButtons = [
     { icon: Share, color: 'blue', label: 'Share', options: ['Option 1', 'Option 2', 'Option 3'] },
@@ -16,7 +16,7 @@ const FloatingNav = () => {
     setActiveSection(null);
   };
 
-  const handleButtonClick = (index) => {
+  const handleButtonClick = (index: number) => {
     setActiveSection(index);
   };
 
