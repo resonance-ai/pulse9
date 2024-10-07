@@ -52,8 +52,11 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
     <div className="fixed bottom-20 right-20">
     {/* <div className="fixed bottom-8 right-8"> */}
       <div className="relative w-64 h-64">
-        {mainButtons.map((button, index) => {
-          const angle = startAngle + (index / (mainButtons.length - 1)) * (endAngle - startAngle);
+      {/* <div className="relative w-64 h-64"> */}
+        {/* {mainButtons.map((button, index) => {
+          const angle = startAngle + (index / (mainButtons.length - 1)) * (endAngle - startAngle); */}
+        {avatartsButtons.map((button, index) => {
+          const angle = startAngle + (index / (avatartsButtons.length - 1)) * (endAngle - startAngle);
           const x = Math.cos(angle) * radius;
           const y = Math.sin(angle) * radius;
 
@@ -76,7 +79,7 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
         })}
 
         {isExpanded && activeSection !== null && (
-          <div className="absolute bottom-20 right-0 flex flex-col space-y-2">
+          <div className="absolute bottom-25 right-0 flex flex-col space-y-2">
             {avatartsButtons[activeSection].names.map((option, index) => (
               <button
                 key={index}
@@ -110,7 +113,8 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
               style={{
                 transform: `translateX(${isExpanded ? 0 : 100}px)`,
                 opacity: isExpanded ? 1 : 0,
-                transitionDelay: `${mainButtons[activeSection].options.length * 50}ms`,
+                transitionDelay: `${avatartsButtons[activeSection].names.length * 50}ms`,
+                // transitionDelay: `${mainButtons[activeSection].options.length * 50}ms`,
               }}
             >
               <ArrowLeft size={24} className="mr-2" /> Back
