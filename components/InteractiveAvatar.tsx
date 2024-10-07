@@ -158,7 +158,7 @@ export default function InteractiveAvatar() {
     setChatMode(v);
   });
 
-  const handleUserTalking = (async (v: boolean) => {
+  const handleVoiceChat = (async (v: boolean) => {
     if (v) {
       avatar.current?.on(StreamingEvents.USER_START, (event) => {
         console.log("handler >>>>> User started talking:", event);
@@ -386,16 +386,16 @@ async function changeAvatar(selectedAvatarId: string) {
                   </Button>
                 </div>
 
-                <div className="absolute text-center bottom-3">
+                {/* <div className="absolute text-center bottom-3">
                   <Button
                     className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white"
                     size="md"
                     variant="shadow"
                     onClick={() => setIsUserTalking}
                   >
-                    {isUserTalking && chatMode === "voice_mode" ? "Listening" : "Voice chat"}
+                    {isUserTalking ? "Listening" : "Voice chat"}
                   </Button>
-                </div>
+                </div> */}
 
               </div>
             ) : !isLoadingSession ? (
@@ -467,13 +467,13 @@ async function changeAvatar(selectedAvatarId: string) {
           <CardFooter className="flex flex-col gap-3 relative">
             <Switch
             checked={chatMode === "voice_mode"}
-            onValueChange={handleUserTalking}
+            onValueChange={handleVoiceChat}
             size="lg"
             color="success"
             aria-label="Voice Mode Toggle"
             >
               <span className={`text-sm ${chatMode === "voice_mode" ? 'text-green-500' : 'text-gray-500'}`}>
-                {chatMode === "voice_mode" ? 'Voice ON' : 'Voice OFF'}
+                {isUserTalking ? 'Listening' : 'Voice Chat'}
               </span>
             </Switch>
           </CardFooter>
