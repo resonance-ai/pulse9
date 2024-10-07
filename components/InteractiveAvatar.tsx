@@ -27,6 +27,7 @@ import AvatarButtonTextInput from "./AvatarButtonTextInput";
 import NavBarSelectAvatars from "./NavBarSelectAvatars";
 import NavBar from "./NavBar";
 import SelectLanguageButton from "./SelectLanguageButton";
+import FloatingNav from "./FloatingNav";
 
 import {AVATARS, STT_LANGUAGE_LIST, STT_LANGUAGE_LIST_SHORT} from "@/app/lib/constants";
 
@@ -478,6 +479,9 @@ async function changeAvatar(selectedAvatarId: string) {
           <br />
           {debug}
         </p>
+      </div>
+      <div>
+        <FloatingNav/>
       </div>
     </div>
   );
