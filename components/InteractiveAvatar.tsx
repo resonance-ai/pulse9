@@ -18,6 +18,7 @@ import {
   Tabs,
   Tab,
   Spacer,
+  Switch,
 } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { useMemoizedFn, usePrevious } from "ahooks";
@@ -44,7 +45,7 @@ export default function InteractiveAvatar() {
   const [text, setText] = useState<string>("");
   const mediaStream = useRef<HTMLVideoElement>(null);
   const avatar = useRef<StreamingAvatar | null>(null);
-  const [chatMode, setChatMode] = useState("voice_mode");
+  const [chatMode, setChatMode] = useState("text_mode");
   const [isUserTalking, setIsUserTalking] = useState(false);
 
   async function fetchAccessToken() {
@@ -85,14 +86,14 @@ export default function InteractiveAvatar() {
       console.log(">>>>> Stream ready:", event.detail);
       setStream(event.detail);
     });
-    avatar.current?.on(StreamingEvents.USER_START, (event) => {
-      console.log(">>>>> User started talking:", event);
-      setIsUserTalking(true);
-    });
-    avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
-      console.log(">>>>> User stopped talking:", event);
-      setIsUserTalking(false);
-    });
+    // avatar.current?.on(StreamingEvents.USER_START, (event) => {
+    //   console.log(">>>>> User started talking:", event);
+    //   setIsUserTalking(true);
+    // });
+    // avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
+    //   console.log(">>>>> User stopped talking:", event);
+    //   setIsUserTalking(false);
+    // });
     try {
       const res = await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
@@ -107,8 +108,8 @@ export default function InteractiveAvatar() {
 
       setData(res);
       // default to voice mode
-      await avatar.current?.startVoiceChat();
-      setChatMode("voice_mode");
+      // await avatar.current?.startVoiceChat();
+      // setChatMode("voice_mode");
     } catch (error) {
       console.error("Error starting avatar session:", error);
     } finally {
@@ -157,6 +158,34 @@ export default function InteractiveAvatar() {
     setChatMode(v);
   });
 
+  const handleUserTalking = (async (v: boolean) => {
+    if (v) {
+      avatar.current?.on(StreamingEvents.USER_START, (event) => {
+        console.log("handler >>>>> User started talking:", event);
+        setIsUserTalking(true);
+      });
+      avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
+        console.log("handler >>>>> User stopped talking:", event);
+        setIsUserTalking(false);
+      });
+  
+      await avatar.current?.startVoiceChat();
+    } else {
+      avatar.current?.off(StreamingEvents.USER_STOP, (event) => {
+        console.log("handler >>>>> Offing User stopped talking:", event);
+      });
+
+      avatar.current?.off(StreamingEvents.USER_START, (event) => {
+        console.log("handler >>>>> Offing User started talking:", event);
+      });
+
+      avatar.current?.closeVoiceChat();
+    }
+
+    setChatMode(v ? "voice_mode" : "text_mode")
+
+  })
+
 async function changeAvatar(selectedAvatarId: string) {
     endSession();
     console.log("======endSession in changeAvatar for new session");
@@ -204,8 +233,8 @@ async function changeAvatar(selectedAvatarId: string) {
 
       setData(res);
       // default to voice mode
-      await avatar.current?.startVoiceChat();
-      setChatMode("voice_mode");
+      // await avatar.current?.startVoiceChat();
+      // setChatMode("voice_mode");
     } catch (error) {
       console.error("Error starting avatar session:", error);
     } finally {
@@ -364,7 +393,7 @@ async function changeAvatar(selectedAvatarId: string) {
                     variant="shadow"
                     onClick={() => setIsUserTalking}
                   >
-                    {isUserTalking ? "Listening" : "Voice chat"}
+                    {isUserTalking && chatMode === "voice_mode" ? "Listening" : "Voice chat"}
                   </Button>
                 </div>
 
@@ -436,16 +465,17 @@ async function changeAvatar(selectedAvatarId: string) {
           {/* <Divider /> */}
 
           <CardFooter className="flex flex-col gap-3 relative">
-            <Tabs
-              aria-label="Options"
-              selectedKey={chatMode}
-              onSelectionChange={(v) => {
-                handleChangeChatMode(v);
-              }}
+            <Switch
+            checked={chatMode === "voice_mode"}
+            onValueChange={handleUserTalking}
+            size="lg"
+            color="success"
+            aria-label="Voice Mode Toggle"
             >
-               <Tab key="text_mode" title="Voice OFF" />
-               <Tab key="voice_mode" title="Voice ON" />
-            </Tabs>
+              <span className={`text-sm ${chatMode === "voice_mode" ? 'text-green-500' : 'text-gray-500'}`}>
+                {chatMode === "voice_mode" ? 'Voice ON' : 'Voice OFF'}
+              </span>
+            </Switch>
           </CardFooter>
 
 
