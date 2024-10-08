@@ -65,7 +65,7 @@ export default function InteractiveAvatar() {
     return "";
   }
 
-  async function startSession() {
+  async function startSession(selectedAvatarId: string) {
     endSession();
     console.log("=======endSession for new session");
     setIsLoadingSession(true);
@@ -99,7 +99,7 @@ export default function InteractiveAvatar() {
     try {
       const res = await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
-        avatarName: "Anna_public_3_20240108",
+        avatarName: selectedAvatarId,
         knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
         knowledgeBase: "Let's play a word chain game",
         voice: {
@@ -452,7 +452,7 @@ async function changeAvatar(selectedAvatarId: string) {
                   className="w-full text-balck"
                   size="md"
                   variant="shadow"
-                  onClick={startSession}
+                  onClick={() => startSession("Anna_public_3_20240108")}
                 >
                   Start streaming
                 </Button>
