@@ -18,6 +18,7 @@ import {
   Tabs,
   Tab,
   Spacer,
+  Switch,
 } from "@nextui-org/react";
 import { useEffect, useRef, useState } from "react";
 import { useMemoizedFn, usePrevious } from "ahooks";
@@ -44,7 +45,7 @@ export default function InteractiveAvatar() {
   const [text, setText] = useState<string>("");
   const mediaStream = useRef<HTMLVideoElement>(null);
   const avatar = useRef<StreamingAvatar | null>(null);
-  const [chatMode, setChatMode] = useState("voice_mode");
+  const [chatMode, setChatMode] = useState("text_mode");
   const [isUserTalking, setIsUserTalking] = useState(false);
 
   async function fetchAccessToken() {
@@ -64,7 +65,9 @@ export default function InteractiveAvatar() {
     return "";
   }
 
-  async function startSession() {
+  async function startSession(selectedAvatarId: string) {
+    endSession();
+    console.log("=========endSession for new session");
     setIsLoadingSession(true);
     const newToken = await fetchAccessToken();
 
@@ -85,19 +88,20 @@ export default function InteractiveAvatar() {
       console.log(">>>>> Stream ready:", event.detail);
       setStream(event.detail);
     });
-    avatar.current?.on(StreamingEvents.USER_START, (event) => {
-      console.log(">>>>> User started talking:", event);
-      setIsUserTalking(true);
-    });
-    avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
-      console.log(">>>>> User stopped talking:", event);
-      setIsUserTalking(false);
-    });
+    // avatar.current?.on(StreamingEvents.USER_START, (event) => {
+    //   console.log(">>>>> User started talking:", event);
+    //   setIsUserTalking(true);
+    // });
+    // avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
+    //   console.log(">>>>> User stopped talking:", event);
+    //   setIsUserTalking(false);
+    // });
     try {
       const res = await avatar.current.createStartAvatar({
         quality: AvatarQuality.Low,
-        avatarName: "Anna_public_3_20240108",
+        avatarName: selectedAvatarId,
         knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
+        knowledgeBase: "Let's play a word chain game",
         voice: {
           rate: 1.5, // 0.5 ~ 1.5
           emotion: VoiceEmotion.EXCITED,
@@ -107,8 +111,8 @@ export default function InteractiveAvatar() {
 
       setData(res);
       // default to voice mode
-      await avatar.current?.startVoiceChat();
-      setChatMode("voice_mode");
+      // await avatar.current?.startVoiceChat();
+      // setChatMode("voice_mode");
     } catch (error) {
       console.error("Error starting avatar session:", error);
     } finally {
@@ -157,6 +161,34 @@ export default function InteractiveAvatar() {
     setChatMode(v);
   });
 
+  const handleVoiceChat = (async (v: boolean) => {
+    if (v) {
+      avatar.current?.on(StreamingEvents.USER_START, (event) => {
+        console.log("handler >>>>> User started talking:", event);
+        setIsUserTalking(true);
+      });
+      avatar.current?.on(StreamingEvents.USER_STOP, (event) => {
+        console.log("handler >>>>> User stopped talking:", event);
+        setIsUserTalking(false);
+      });
+  
+      await avatar.current?.startVoiceChat();
+    } else {
+      avatar.current?.off(StreamingEvents.USER_STOP, (event) => {
+        console.log("handler >>>>> Offing User stopped talking:", event);
+      });
+
+      avatar.current?.off(StreamingEvents.USER_START, (event) => {
+        console.log("handler >>>>> Offing User started talking:", event);
+      });
+
+      avatar.current?.closeVoiceChat();
+    }
+
+    setChatMode(v ? "voice_mode" : "text_mode")
+
+  })
+
 async function changeAvatar(selectedAvatarId: string) {
     endSession();
     console.log("======endSession in changeAvatar for new session");
@@ -204,8 +236,8 @@ async function changeAvatar(selectedAvatarId: string) {
 
       setData(res);
       // default to voice mode
-      await avatar.current?.startVoiceChat();
-      setChatMode("voice_mode");
+      // await avatar.current?.startVoiceChat();
+      // setChatMode("voice_mode");
     } catch (error) {
       console.error("Error starting avatar session:", error);
     } finally {
@@ -241,11 +273,7 @@ async function changeAvatar(selectedAvatarId: string) {
 
   return (
     <div className="w-full">
-      <NavBarSelectAvatars changeAvatar={changeAvatar}/>
-      {/* <NavBar 
-        onSubmit={changeAvatar}
-        setInput={setText}
-      /> */}
+      {/* <NavBarSelectAvatars changeAvatar={changeAvatar}/> */}
       <div className="w-full flex flex-col gap-4">
         <Card className="shadow-none rounded-0">
           <CardBody className="h-[948px] flex flex-col justify-center items-center">
@@ -338,7 +366,7 @@ async function changeAvatar(selectedAvatarId: string) {
                   </div>
                 </div> */}
 
-                <div className="flex flex-col gap-2 absolute bottom-3 right-3">
+                <div className="flex flex-col gap-2 absolute bottom-3 left-3">
                   <Button
                     className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white rounded-lg"
                     size="md"
@@ -357,7 +385,7 @@ async function changeAvatar(selectedAvatarId: string) {
                   </Button>
                 </div>
 
-                <div className="absolute text-center bottom-3">
+                {/* <div className="absolute text-center bottom-3">
                   <Button
                     className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white"
                     size="md"
@@ -366,7 +394,7 @@ async function changeAvatar(selectedAvatarId: string) {
                   >
                     {isUserTalking ? "Listening" : "Voice chat"}
                   </Button>
-                </div>
+                </div> */}
 
               </div>
             ) : !isLoadingSession ? (
@@ -424,7 +452,7 @@ async function changeAvatar(selectedAvatarId: string) {
                   className="w-full text-balck"
                   size="md"
                   variant="shadow"
-                  onClick={startSession}
+                  onClick={() => startSession("Anna_public_3_20240108")}
                 >
                   Start streaming
                 </Button>
@@ -436,16 +464,17 @@ async function changeAvatar(selectedAvatarId: string) {
           {/* <Divider /> */}
 
           <CardFooter className="flex flex-col gap-3 relative">
-            <Tabs
-              aria-label="Options"
-              selectedKey={chatMode}
-              onSelectionChange={(v) => {
-                handleChangeChatMode(v);
-              }}
+            <Switch
+            checked={chatMode === "voice_mode"}
+            onValueChange={handleVoiceChat}
+            size="lg"
+            color="success"
+            aria-label="Voice Mode Toggle"
             >
-               <Tab key="text_mode" title="Voice OFF" />
-               <Tab key="voice_mode" title="Voice ON" />
-            </Tabs>
+              <span className={`text-sm ${chatMode === "voice_mode" ? 'text-green-500' : 'text-gray-500'}`}>
+                {isUserTalking ? 'Listening' : 'Voice Chat'}
+              </span>
+            </Switch>
           </CardFooter>
 
 
@@ -494,9 +523,9 @@ async function changeAvatar(selectedAvatarId: string) {
           <br />
           {debug}
         </p>
-      </div>
-      <div>
-        <FloatingNav/>
+        <div>
+          <FloatingNav changeAvatar={startSession}/>
+        </div>
       </div>
     </div>
   );
