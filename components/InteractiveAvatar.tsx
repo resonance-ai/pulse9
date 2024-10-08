@@ -67,7 +67,7 @@ export default function InteractiveAvatar() {
 
   async function startSession(selectedAvatarId: string) {
     endSession();
-    console.log("=======endSession for new session");
+    console.log("=========endSession for new session");
     setIsLoadingSession(true);
     const newToken = await fetchAccessToken();
 
@@ -524,7 +524,7 @@ async function changeAvatar(selectedAvatarId: string) {
           {debug}
         </p>
         <div>
-          <FloatingNav changeAvatar={changeAvatar}/>
+          <FloatingNav changeAvatar={startSession}/>
         </div>
       </div>
     </div>
