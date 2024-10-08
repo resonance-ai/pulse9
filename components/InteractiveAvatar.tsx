@@ -270,11 +270,7 @@ async function changeAvatar(selectedAvatarId: string) {
 
   return (
     <div className="w-full">
-      <NavBarSelectAvatars changeAvatar={changeAvatar}/>
-      {/* <NavBar 
-        onSubmit={changeAvatar}
-        setInput={setText}
-      /> */}
+      {/* <NavBarSelectAvatars changeAvatar={changeAvatar}/> */}
       <div className="w-full flex flex-col gap-4">
         <Card className="shadow-none rounded-0">
           <CardBody className="h-[948px] flex flex-col justify-center items-center">
@@ -367,7 +363,7 @@ async function changeAvatar(selectedAvatarId: string) {
                   </div>
                 </div> */}
 
-                <div className="flex flex-col gap-2 absolute bottom-3 right-3">
+                <div className="flex flex-col gap-2 absolute bottom-3 left-3">
                   <Button
                     className="bg-gradient-to-tr from-indigo-500 to-indigo-300 text-white rounded-lg"
                     size="md"
@@ -524,9 +520,9 @@ async function changeAvatar(selectedAvatarId: string) {
           <br />
           {debug}
         </p>
-      </div>
-      <div>
-        <FloatingNav/>
+        <div>
+          <FloatingNav changeAvatar={changeAvatar}/>
+        </div>
       </div>
     </div>
   );
