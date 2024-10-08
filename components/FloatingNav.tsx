@@ -79,7 +79,7 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
         })}
 
         {isExpanded && activeSection !== null && (
-          <div className="absolute bottom-25 right-0 flex flex-col space-y-2">
+          <div className="absolute bottom-20 right-0 flex flex-col space-y-2">
             {avatartsButtons[activeSection].names.map((option, index) => (
               <button
                 key={index}
