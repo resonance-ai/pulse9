@@ -66,6 +66,8 @@ export default function InteractiveAvatar() {
   }
 
   async function startSession() {
+    endSession();
+    console.log("=======endSession for new session");
     setIsLoadingSession(true);
     const newToken = await fetchAccessToken();
 
@@ -99,6 +101,7 @@ export default function InteractiveAvatar() {
         quality: AvatarQuality.Low,
         avatarName: "Anna_public_3_20240108",
         knowledgeId: knowledgeId, // Or use a custom `knowledgeBase`.
+        knowledgeBase: "Let's play a word chain game",
         voice: {
           rate: 1.5, // 0.5 ~ 1.5
           emotion: VoiceEmotion.EXCITED,
