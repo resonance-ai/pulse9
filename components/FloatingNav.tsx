@@ -17,14 +17,14 @@ const FloatingNav = ( {changeAvatar} : FloatingNavProps) => {
   ];
   const avatartsButtons = [
     { icon: Share, label: 'Share', 
-      names: ['Eric', 'Susan', 'Tyler'], 
-      ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
+      names: ['Eric', 'Anna', 'Tyler'], 
+      ids: ['Eric_public_pro2_20230608', 'Anna_public_3_20240108', 'Tyler-incasualsuit-20220721'] },
     { icon: Edit, label: 'Edit', 
-      names: ['Eric', 'Susan', 'Tyler'], 
-      ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
+      names: ['Eric', 'Anna', 'Tyler'], 
+      ids: ['Eric_public_pro2_20230608', 'Anna_public_3_20240108', 'Tyler-incasualsuit-20220721'] },
     { icon: Trash, label: 'Delete', 
-      names: ['Eric', 'Susan', 'Tyler'], 
-      ids: ['Eric_public_pro2_20230608', 'Susan_public_2_20240328', 'Tyler-incasualsuit-20220721'] },
+      names: ['Eric', 'Anna', 'Tyler'], 
+      ids: ['Eric_public_pro2_20230608', 'Anna_public_3_20240108', 'Tyler-incasualsuit-20220721'] },
   ];
 
   const handleConsole = (data : any) => {
