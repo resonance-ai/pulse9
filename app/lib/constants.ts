@@ -56,4 +56,5 @@ export const STT_LANGUAGE_LIST = [
 export const STT_LANGUAGE_LIST_SHORT = [
   { label: 'Chinese', value: 'zh', key: 'zh' },
   { label: 'English', value: 'en', key: 'en' },
+  { label: 'Korean', value: 'ko', key: 'ko' },
   ];

@@ -292,25 +292,25 @@ async function changeAvatar(selectedAvatarId: string) {
                   <track kind="captions" />
                 </video>
 
-                {/* <div className="absolute bottom-40 bg-opacity-0">           
+                <div className="absolute bottom-40 bg-opacity-0">           
                   <div className="flex flex-row justify-center gap-3 bg-opacity-0">
                     <AvatarButtonTextInput
-                      input={"Apple"} 
-                      onSubmit={() => handleSpeak("Apple")}
+                      input={"钱包"} 
+                      onSubmit={() => handleSpeak("钱包")}
                       setInput={setText}
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
                     <AvatarButtonTextInput
-                      input={"Music"} 
-                      onSubmit={() => handleSpeak("Music")}
+                      input={"充电器"} 
+                      onSubmit={() => handleSpeak("充电器")}
                       setInput={setText}
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
                     <AvatarButtonTextInput
-                      input={"Key"} 
-                      onSubmit={() => handleSpeak("Key")}
+                      input={"你最喜欢谈论的话题是什么?"} 
+                      onSubmit={() => handleSpeak("你最喜欢谈论的话题是什么?")}
                       setInput={setText}
                       disabled={!stream}
                       loading={isLoadingRepeat}
@@ -319,15 +319,15 @@ async function changeAvatar(selectedAvatarId: string) {
                   <Spacer y={4} />
                   <div className="flex flex-row justify-center gap-3 bg-opacity-0">
                     <AvatarButtonTextInput
-                      input={"What is your favorite animal?"} 
-                      onSubmit={() => handleSpeak("What is your favorite animal?")}
+                      input={"Animal"} 
+                      onSubmit={() => handleSpeak("Animal")}
                       setInput={setText}
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
                     <AvatarButtonTextInput
-                        input={"What can you help with?"} 
-                        onSubmit={() => handleSpeak("What can you help with?")}
+                        input={"Tomato"} 
+                        onSubmit={() => handleSpeak("Tomato")}
                         setInput={setText}
                         disabled={!stream}
                         loading={isLoadingRepeat}
@@ -343,28 +343,28 @@ async function changeAvatar(selectedAvatarId: string) {
                   <Spacer y={4} />
                   <div className="flex flex-row justify-center gap-3 bg-opacity-0">
                     <AvatarButtonTextInput
-                      input={"Can you solve problems?"} 
-                      onSubmit={() => handleSpeak("Can you solve problems?")}
+                      input={"안약"} 
+                      onSubmit={() => handleSpeak("안약")}
                       setInput={setText}
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
                     <AvatarButtonTextInput
-                      input={"Do you know fun facts?"} 
-                      onSubmit={() => handleSpeak("Do you know fun facts?")}
+                      input={"숫자"} 
+                      onSubmit={() => handleSpeak("숫자")}
                       setInput={setText}
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
                     <AvatarButtonTextInput
-                      input={"Do you ever sleep?"} 
-                      onSubmit={() => handleSpeak("Do you ever sleep?")}
+                      input={"넌 잠을 자니?"} 
+                      onSubmit={() => handleSpeak("넌 잠을 자니?")}
                       setInput={setText}
                       disabled={!stream}
                       loading={isLoadingRepeat}
                     />
                   </div>
-                </div> */}
+                </div>
 
                 <div className="flex flex-col gap-2 absolute bottom-3 left-3">
                   <Button
